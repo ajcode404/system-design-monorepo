@@ -14,4 +14,13 @@
 $ docker run --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=<your-root-password> -d mysql
 
 $ mysql -u root -ppassword -h 127.0.0.1 -P 3306
+
+$ create database <database-name> # recordings
+```
+
+
+## run go program with env variable
+
+```sh
+$ DBUSER=root DBPASS=password go run main.go 
 ```

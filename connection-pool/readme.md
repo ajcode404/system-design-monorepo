@@ -22,5 +22,13 @@ $ create database <database-name> # recordings
 ## run go program with env variable
 
 ```sh
-$ DBUSER=root DBPASS=password go run main.go 
+$ DBUSER=<username> DBPASS=<password> go run main.go 
 ```
+
+
+## learning go channel
+
+* Go channel -> puts the event on channel and <- pulls the event from channel.
+* While adding back the connection we were pulling from channel which resulted in we in-defintely waiting for channle to free which will never happen since we are not releasing the resource.
+* So Put back the connection should send an event to channel by doing `pool.channel <- struct{}{}` which means one place is free.
+

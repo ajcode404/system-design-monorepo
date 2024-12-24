@@ -2,18 +2,30 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
+	"log"
+	"os"
 
 	"github.com/go-sql-driver/mysql"
 )
 
-const (
-	username = "root"
-	password = "password"
-	hostname = "localhost:3306"
-	dbname   = "connection-pooling"
-)
-
 func main() {
-	sql.Register("mysql", &mysql.MySQLDriver{})
 
+	cfg := mysql.Config{
+		User:   os.Getenv("DBUSER"),
+		Passwd: os.Getenv("DBPASS"),
+		Net:    "tcp",
+		Addr:   "127.0.0.1:3306",
+		DBName: "recordings",
+	}
+
+	db, err := sql.Open("mysql", cfg.FormatDSN())
+	if err != nil {
+		log.Fatal(err)
+	}
+	pingErr := db.Ping()
+	if pingErr != nil {
+		log.Fatal(pingErr)
+	}
+	fmt.Println("Connected!")
 }

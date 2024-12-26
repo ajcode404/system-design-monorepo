@@ -9,7 +9,8 @@ import (
 )
 
 type Conn struct {
-	DB *sql.DB
+	DB     *sql.DB
+	DBName string
 }
 
 type CPool struct {
@@ -28,7 +29,7 @@ func NewCPool(maxConn int, dbName string) (*CPool, error) {
 		channel: make(chan interface{}, maxConn),
 	}
 	for i := 0; i < maxConn; i++ {
-		pool.conns = append(pool.conns, &Conn{NewCon()})
+		pool.conns = append(pool.conns, &Conn{NewCon(dbName), dbName})
 		pool.channel <- struct{}{}
 	}
 	return pool, nil
@@ -60,14 +61,14 @@ func (pool *CPool) Put(c *Conn) {
 	pool.mu.Unlock()
 }
 
-func NewCon() *sql.DB {
+func NewCon(dbName string) *sql.DB {
 
 	cfg := mysql.Config{
 		User:   os.Getenv("DBUSER"),
 		Passwd: os.Getenv("DBPASS"),
 		Net:    "tcp",
 		Addr:   "127.0.0.1:3306",
-		DBName: "recordings",
+		DBName: dbName,
 	}
 
 	db, err := sql.Open("mysql", cfg.FormatDSN())

@@ -1,9 +1,9 @@
 package main
 
-import "ajcode404.github.io/m/mod"
+import "ajcode404.github.io/m/fair"
 
 // count prime numbers
 
 func main() {
-	mod.Mod()
+	fair.Fair()
 }

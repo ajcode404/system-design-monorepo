@@ -1,4 +1,4 @@
-package main
+package stream
 
 import (
 	"bufio"
@@ -8,7 +8,7 @@ import (
 	"github.com/rabbitmq/rabbitmq-stream-go-client/pkg/stream"
 )
 
-func main() {
+func Send() {
 	env, err := stream.NewEnvironment(stream.NewEnvironmentOptions().SetHost("localhost").SetPort(5552))
 	if err != nil {
 		panic(err)

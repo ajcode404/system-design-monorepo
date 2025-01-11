@@ -1,4 +1,4 @@
-package main
+package stream
 
 import (
 	"bufio"
@@ -9,7 +9,7 @@ import (
 	"github.com/rabbitmq/rabbitmq-stream-go-client/pkg/stream"
 )
 
-func main() {
+func Receive() {
 	env, err := stream.NewEnvironment(stream.NewEnvironmentOptions())
 	if err != nil {
 		panic(err)

@@ -8,7 +8,7 @@ import (
 	"github.com/rabbitmq/rabbitmq-stream-go-client/pkg/stream"
 )
 
-func Send() {
+func Send(msg string) {
 	env, err := stream.NewEnvironment(stream.NewEnvironmentOptions().SetHost("localhost").SetPort(5552))
 	if err != nil {
 		panic(err)
@@ -22,7 +22,7 @@ func Send() {
 	if err != nil {
 		panic(err)
 	}
-	err = producer.Send(amqp.NewMessage([]byte("Hi AJ")))
+	err = producer.Send(amqp.NewMessage([]byte(msg)))
 	if err != nil {
 		panic(err)
 	}
